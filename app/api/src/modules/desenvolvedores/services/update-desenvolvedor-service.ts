@@ -18,7 +18,7 @@ class UpdateDesenvolvedorService {
 
       const nivel = await this.nivelRepository.findOne({
         where: {
-          id: createDesenvolvedorDTO.nivelId,
+          id: createDesenvolvedorDTO.nivel,
         },
       });
   
@@ -31,9 +31,9 @@ class UpdateDesenvolvedorService {
           const errorMessage = Object.values(validateData[0].constraints)
           throw new Error(errorMessage[0]);
       }
-
       this.desenvolvedorRepository.update(id, 
         {
+          
          nome: createDesenvolvedorDTO.nome , 
          idade: createDesenvolvedorDTO.idade,
          hobby: createDesenvolvedorDTO.hobby,

@@ -10,8 +10,8 @@ import { Sexo } from '../../../shared/const';
 
 export class CreateDesenvolvedorDto {
 
-  constructor(nivelId, nome, sexo, idade, dataNascimento, hobby) {
-    this.nivelId = nivelId;
+  constructor(nivel: number, nome: string, sexo: Sexo, idade: number, dataNascimento: Date, hobby: string) {
+    this.nivel = nivel;
     this.nome = nome;
     this.sexo = sexo;
     this.idade = idade;
@@ -20,15 +20,15 @@ export class CreateDesenvolvedorDto {
   }
 
   @IsNotEmpty({
-    message: 'nivelId é obrigatório',
+    message: 'nivel é obrigatório',
   })
   @IsNumber(
     {},
     {
-      message: 'nivelId inválido',
+      message: 'nivel inválido',
     },
   )
-  nivelId: number;
+  nivel: number;
 
   @IsNotEmpty({
     message: 'nome é obrigatório',

@@ -16,7 +16,7 @@ class CreateDesenvolvedorService {
 
         const nivelExists = await this.nivelRepository.findOne({
             where: {
-              id: createDesenvolvedorDTO.nivelId,
+              id: createDesenvolvedorDTO.nivel,
             },
           });   
       
@@ -29,9 +29,8 @@ class CreateDesenvolvedorService {
             const errorMessage = Object.values(validateData[0].constraints)
             throw new Error(errorMessage[0]);
         }
-  
+        
         const desenvolvedor = this.desenvolvedorRepository.create(createDesenvolvedorDTO)
-
         await this.desenvolvedorRepository.save(desenvolvedor)
 
         return desenvolvedor;

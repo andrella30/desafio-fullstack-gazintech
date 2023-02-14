@@ -71,6 +71,7 @@ desenvolvedorRouter.put('/:id', async (request,response) => {
         const nivelId = Number(nivel)
         const parsedDate =  parseISO(dataNascimento);
         
+        
         const createDesenvolvedorDTO = new CreateDesenvolvedorDto(nivelId, nome, sexo, idade, parsedDate, hobby)
 
         const updateNivelService = new UpdateDesenvolvedorService()
