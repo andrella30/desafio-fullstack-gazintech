@@ -6,9 +6,19 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
-import { Sexo } from '../../shared/const';
+import { Sexo } from '../../../shared/const';
 
 export class CreateDesenvolvedorDto {
+
+  constructor(nivelId, nome, sexo, idade, dataNascimento, hobby) {
+    this.nivelId = nivelId;
+    this.nome = nome;
+    this.sexo = sexo;
+    this.idade = idade;
+    this.dataNascimento = dataNascimento;
+    this.hobby = hobby;
+  }
+
   @IsNotEmpty({
     message: 'nivelId é obrigatório',
   })

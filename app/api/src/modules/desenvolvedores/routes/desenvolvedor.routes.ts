@@ -2,7 +2,7 @@ import { validate, validateOrReject } from "class-validator";
 import { parseISO } from "date-fns";
 import { Router } from "express";
 import { body, validationResult } from "express-validator";
-import { CreateDesenvolvedorDto } from "../services/create-desenvolvedor-dto";
+import { CreateDesenvolvedorDto } from "../services/dto/create-desenvolvedor-dto";
 import CreateDesenvolvedorService from "../services/create-desenvolvedor-service";
 import DeleteDesenvolvedorService from "../services/delete-desenvolvedor-service";
 import FindAllDesenvolvedorService from "../services/find-all-desenvolvedores-service";
@@ -43,14 +43,9 @@ desenvolvedorRouter.post('/',  async (request, response) => {
         const { nome, idade, hobby, sexo, dataNascimento, nivel} = request.body
        
         const parsedDate = parseISO(dataNascimento)
+        const nivelId = Number(nivel)
         
-        const createDesenvolvedorDTO = new CreateDesenvolvedorDto()
-        createDesenvolvedorDTO.nome = nome
-        createDesenvolvedorDTO.idade = idade
-        createDesenvolvedorDTO.hobby = hobby
-        createDesenvolvedorDTO.sexo = sexo
-        createDesenvolvedorDTO.dataNascimento = parsedDate
-        createDesenvolvedorDTO.nivelId = nivel
+        const createDesenvolvedorDTO = new CreateDesenvolvedorDto(nivelId, nome, sexo, idade, parsedDate, hobby);
  
         const createDesenvolvedorService = new CreateDesenvolvedorService()
 
@@ -73,17 +68,10 @@ desenvolvedorRouter.put('/:id', async (request,response) => {
         const { nome, idade, hobby, sexo, dataNascimento, nivel} = request.body 
 
         const parsedId = Number(id)
-        const parsedIdNivel = Number(nivel)
-        const parsedDate = parseISO(dataNascimento)
-
-        const createDesenvolvedorDTO = new CreateDesenvolvedorDto()
-        createDesenvolvedorDTO.nome = nome
-        createDesenvolvedorDTO.idade = idade
-        createDesenvolvedorDTO.hobby = hobby
-        createDesenvolvedorDTO.sexo = sexo
-        createDesenvolvedorDTO.dataNascimento = parsedDate
-        createDesenvolvedorDTO.nivelId = nivel
-
+        const nivelId = Number(nivel)
+        const parsedDate =  parseISO(dataNascimento);
+        
+        const createDesenvolvedorDTO = new CreateDesenvolvedorDto(nivelId, nome, sexo, idade, parsedDate, hobby)
 
         const updateNivelService = new UpdateDesenvolvedorService()
 
@@ -102,7 +90,7 @@ desenvolvedorRouter.delete('/:id', async (request,response) => {
         const { id } = request.params   
 
         const parsedId = Number(id)
-        const updateNivelService =  new DeleteDesenvolvedorService() //new DeleteNivelService()
+        const updateNivelService =  new DeleteDesenvolvedorService()
 
         const currentNivelResponse = await updateNivelService.execute(parsedId)
         return response.status(200).json({message: currentNivelResponse})

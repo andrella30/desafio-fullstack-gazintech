@@ -1,36 +1,12 @@
-import { validate, validateOrReject } from "class-validator";
-import { response } from "express";
+import { validate } from "class-validator";
 import AppDataSource from "../../../database/data_source";
 import Niveis from "../../niveis/entities/Nivel";
 import { Sexo } from "../../shared/const";
 import { Messages } from "../../shared/messages";
 import { Desenvolvedor } from "../entities/Desenvolvedor";
-import { CreateDesenvolvedorDto } from "./create-desenvolvedor-dto";
+import { CreateDesenvolvedorDto } from "./dto/create-desenvolvedor-dto";
 
-interface RequestDTO {
-    nome: string,
-    idade: number,
-    hobby: string,
-    sexo: Sexo,
-    dataNascimento: Date,
-    nivel: number
-}
-interface ValidatorOptions {
-    skipMissingProperties?: boolean;
-    whitelist?: boolean;
-    forbidNonWhitelisted?: boolean;
-    groups?: string[];
-    dismissDefaultMessages?: boolean;
-    validationError?: {
-      target?: boolean;
-      value?: boolean;
-    };
-  
-    forbidUnknownValues?: boolean;
-    stopAtFirstError?: boolean;
-  }
-
-class CreateDesenvolvedorService {
+class CreateDesenvolvedorService { 
     constructor(
         private desenvolvedorRepository = AppDataSource.getRepository(Desenvolvedor),
         private nivelRepository = AppDataSource.getRepository(Niveis)
@@ -48,10 +24,11 @@ class CreateDesenvolvedorService {
             throw new Error(Messages.MESSAGE_NIVEL_INVALID);
         }
                 
-        const validateDate = await validate(createDesenvolvedorDTO);
-        if(validateDate.length > 0)
-            throw new Error(Messages.MESSAGE_INCORRECT_INPUT);
-
+        const validateData = await validate(createDesenvolvedorDTO);
+        if(validateData.length > 0) {
+            const errorMessage = Object.values(validateData[0].constraints)
+            throw new Error(errorMessage[0]);
+        }
   
         const desenvolvedor = this.desenvolvedorRepository.create(createDesenvolvedorDTO)
 
