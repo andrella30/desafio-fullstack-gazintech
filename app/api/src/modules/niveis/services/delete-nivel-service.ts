@@ -18,7 +18,7 @@ class DeleteNivelService {
       });
   
       if (!nivelToDelete) {
-        throw new Error(Messages.MESSAGE_BAD_REQUEST);
+        throw new Error(Messages.MESSAGE_NOT_FOUND);
       }
   
       const nivelIsAssociated = !!(await this.desenvolvedorRepository.countBy({

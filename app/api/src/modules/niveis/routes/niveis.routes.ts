@@ -1,6 +1,7 @@
 import { Router } from "express";
 import DeleteDesenvolvedorService from "../../desenvolvedores/services/delete-desenvolvedor-service";
 import UpdateDesenvolvedorService from "../../desenvolvedores/services/update-desenvolvedor-service";
+import { Messages } from "../../shared/messages";
 import CreateNivelService from "../services/create-nivel-service";
 import DeleteNivelService from "../services/delete-nivel-service";
 import FindAllNiveisService from "../services/find-all-service";
@@ -86,7 +87,9 @@ niveisRouter.delete('/:id', async (request,response) => {
 
     } catch (err: unknown) {
         if (err instanceof Error) {
-            return response.status(400).json({ error: err.message})
+            if (err.message === Messages.MESSAGE_NIVEL_ASSOCIATED)
+                return response.status(501).json({ error: err.message })
+            return response.status(400).json({ error: err.message })
         }
     }
 })
