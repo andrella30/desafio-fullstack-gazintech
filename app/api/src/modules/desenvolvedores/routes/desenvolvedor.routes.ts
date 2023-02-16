@@ -1,7 +1,5 @@
-import { validate, validateOrReject } from "class-validator";
 import { parseISO } from "date-fns";
 import { Router } from "express";
-import { body, validationResult } from "express-validator";
 import { CreateDesenvolvedorDto } from "../services/dto/create-desenvolvedor-dto";
 import CreateDesenvolvedorService from "../services/create-desenvolvedor-service";
 import DeleteDesenvolvedorService from "../services/delete-desenvolvedor-service";
@@ -22,56 +20,54 @@ desenvolvedorRouter.get('/', async (request, response) => {
 
 desenvolvedorRouter.get('/:id', async (request, response) => {
     try {
-        const {id} = request.params
+        const { id } = request.params
 
         const parsedId = Number(id)
 
         const findOneDesenvolvedorService = new FindOneDesenvolvedorService()
         const readNivel = await findOneDesenvolvedorService.execute(parsedId)
-    
+
         return response.status(200).json(readNivel)
-        
+
     } catch (err: unknown) {
         if (err instanceof Error) {
-            return response.status(400).json({ error: err.message})
+            return response.status(400).json({ error: err.message })
         }
     }
 })
 
-desenvolvedorRouter.post('/',  async (request, response) => {
+desenvolvedorRouter.post('/', async (request, response) => {
     try {
-        const { nome, idade, hobby, sexo, dataNascimento, nivel} = request.body
-       
+        const { nome, idade, hobby, sexo, dataNascimento, nivelId } = request.body
+
         const parsedDate = parseISO(dataNascimento)
-        const nivelId = Number(nivel)
-        
+        const nivelparse = Number(nivelId)
+
         const createDesenvolvedorDTO = new CreateDesenvolvedorDto(nivelId, nome, sexo, idade, parsedDate, hobby);
- 
+
         const createDesenvolvedorService = new CreateDesenvolvedorService()
 
         const desenvolvedor = await createDesenvolvedorService.execute(createDesenvolvedorDTO)
-        
+
         return response.status(201).json(desenvolvedor)
 
     } catch (err: unknown) {
         if (err instanceof Error) {
-            return response.status(400).json({ error: err.message})
+            return response.status(400).json({ error: err.message })
         }
     }
-    
+
 })
 
-desenvolvedorRouter.put('/:id', async (request,response) => {
+desenvolvedorRouter.put('/:id', async (request, response) => {
     try {
 
         const { id } = request.params
-        const { nome, idade, hobby, sexo, dataNascimento, nivel} = request.body 
+        const { nome, idade, hobby, sexo, dataNascimento, nivelId } = request.body
 
         const parsedId = Number(id)
-        const nivelId = Number(nivel)
-        const parsedDate =  parseISO(dataNascimento);
-        
-        
+        const parsedDate = parseISO(dataNascimento);
+
         const createDesenvolvedorDTO = new CreateDesenvolvedorDto(nivelId, nome, sexo, idade, parsedDate, hobby)
 
         const updateNivelService = new UpdateDesenvolvedorService()
@@ -81,46 +77,27 @@ desenvolvedorRouter.put('/:id', async (request,response) => {
 
     } catch (err: unknown) {
         if (err instanceof Error) {
-            return response.status(400).json({ error: err.message})
+            return response.status(400).json({ error: err.message })
         }
     }
 })
 
-desenvolvedorRouter.delete('/:id', async (request,response) => {
+desenvolvedorRouter.delete('/:id', async (request, response) => {
     try {
-        const { id } = request.params   
+        const { id } = request.params
 
         const parsedId = Number(id)
-        const updateNivelService =  new DeleteDesenvolvedorService()
+        const updateNivelService = new DeleteDesenvolvedorService()
 
         const currentNivelResponse = await updateNivelService.execute(parsedId)
-        return response.status(200).json({message: currentNivelResponse})
+        return response.status(204).json({ message: currentNivelResponse })
 
     } catch (err: unknown) {
         if (err instanceof Error) {
-            return response.status(400).json({ error: err.message})
+            return response.status(400).json({ error: err.message })
         }
     }
 })
 
-
-
-// desenvolvedorRouter.delete('/:id', (request, response) => {
-//     try {
-//         const { id } = request.params
-//         const parsedId = Number(id)
-    
-//         const deleteDesenvolvedorService = new DeleteDesenvolvedorService()
-//         deleteDesenvolvedorService.execute(parsedId)
-
-//         return response.status(201).send()
-
-//     } catch (err: unknown) {
-//         if (err instanceof Error) {
-//             return response.status(400).json({ error: err.message}) 
-//         }
-//     }
-// }) 
- 
 
 export default desenvolvedorRouter
