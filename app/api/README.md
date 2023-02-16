@@ -2,7 +2,7 @@
 
 ## Descrição
 
-<p>Projeto de uma API REST utilizando o framework Nest e o DB MySQL junto com TypeORM</p>
+<p>Projeto de uma API REST utilizando Express, Postgres e TypeORM</p>
 
 ## Tópicos
 
