@@ -2,7 +2,7 @@
 
 ## Descrição
 
-<p>Frontend desenvolvido para a execução dos métodos desenvolvidos no Backend</p>
+<p>Frontend desenvolvido em Flutter Web para a execução dos métodos desenvolvidos no Backend</p>
 
 ## Tópicos
 
