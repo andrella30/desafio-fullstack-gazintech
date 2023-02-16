@@ -1,16 +1,62 @@
-# web
+# Frontend - Desafio fullstack Gazin-Tech
 
-A new Flutter project.
+## Descrição
 
-## Getting Started
+<p>Frontend desenvolvido para a execução dos métodos desenvolvidos no Backend</p>
 
-This project is a starting point for a Flutter application.
+## Tópicos
 
-A few resources to get you started if this is your first Flutter project:
+<!--ts-->
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Descrição](#descrição)
+- [Features](#features)
+- [Pré-requisitos](#pré-requisitos)
+- [Executar](#executar)
+- [Tecnologias](#tecnologias)
+  <!--te-->
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Features
+- [x] Listagem de todos os níveis
+- [x] Cadastro de nível
+- [x] Exclusão de nível
+- [x] Edição de nível
+- [x] Busca de nível por ID
+- [x] Listagem de todos os desenvolvedores
+- [x] Busca de desenvolvedor por ID
+- [x] Cadastro de desenvolvedor
+- [x] Exclusão de desenvolvedor
+- [x] Edição de desenvolvedor
+
+## Pré-requisitos
+
+<p>Para rodar o projeto é necessário apenas o Docker</p>
+
+## Executar
+
+<p>Para subir o frontend para o docker é necessário utilizar o seguinte comando </p>
+
+```bash
+docker build -t gazin-web .
+```
+
+<p> Caso ocorra problemas com cache basta utilizar o seguinte comando </p>
+
+```bash
+docker build --no-cache -t gazin-web .
+```
+
+<p> Após a imagem ser baixada no dokcer basta utilizar o seguinte comando para acessar a aplicação </p>
+
+```bash
+docker run -d -p 1200:80 --name gazin gazin-web
+```
+
+<p>A aplicação estará rodando na url  http://localhost:1200/</p>
+
+## Tecnologias
+
+<p>As seguintes ferramentas foram utilizadas na construção do projeto:</p>
+
+- [Flutter](https://flutter.dev/)
+- [GetIt](https://pub.dev/packages/get_it)
+- [MobX](https://mobx.netlify.app/)
