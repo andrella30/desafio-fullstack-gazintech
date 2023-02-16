@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:web/src/desenvolvedores/controllers/desenvolvedores_controller.dart';
 import 'package:web/src/desenvolvedores/models/desenvolvedores_model.dart';
 import 'package:web/src/desenvolvedores/view/widgets/button_delete_widget.dart';
@@ -19,52 +20,90 @@ class DevelopersCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = GetIt.I.get<DesenvolvedoresController>();
+
     return Container(
       decoration: const BoxDecoration(
           color: Colors.blueGrey,
-          borderRadius: BorderRadius.all(Radius.circular(20))),
+          borderRadius: BorderRadius.all(Radius.circular(10))),
       height: constraints.maxHeight * 0.2,
       width: constraints.maxWidth * 0.5,
       child: Padding(
-        padding: EdgeInsets.only(
-          top: 10,
-          left: constraints.maxWidth * 0.05,
-          right: constraints.maxWidth * 0.05,
-        ),
+        padding: EdgeInsets.all(30),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              child: Column(
+              height: constraints.maxHeight * 0.15,
+              width: constraints.maxWidth * 0.20,
+              child: Row(
                 children: [
-                  Row(
-                    children: [
-                      LayoutDesenvInfo(
-                          tipo: "Nome", title: developersModel.nome!),
-                      LayoutDesenvInfo(
-                          tipo: "Idade",
-                          title: developersModel.idade.toString()),
-                      LayoutDesenvInfo(
-                          tipo: "Sexo", title: developersModel.sexo!),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: constraints.maxHeight * 0.03,
+                          width: constraints.maxWidth * 0.15,
+                          child: Row(
+                            children: [
+                              Text(
+                                developersModel.nome!,
+                                style: const TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: SizedBox(
+                            height: constraints.maxHeight * 0.03,
+                            width: constraints.maxWidth * 0.15,
+                            child: Row(
+                              children: [
+                                Text(
+                                  developersModel.sexo == "M"
+                                      ? "MASCULINO"
+                                      : "FEMININO",
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: constraints.maxHeight * 0.10,
+              width: constraints.maxWidth * 0.15,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Icon(Icons.calendar_month_outlined),
+                  Text(
+                    developersModel.dataNascimento!.substring(0, 10),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Row(
-                    children: [
-                      LayoutDesenvInfo(
-                          tipo: "Hobby", title: developersModel.hobby!),
-                      LayoutDesenvInfo(
-                          tipo: "Data Nascimento",
-                          title:
-                              developersModel.dataNascimento!.substring(0, 10)),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      "${developersModel.idade} Anos",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Row(
-                    children: [
-                      LayoutDesenvInfo(
-                          tipo: "Nível",
-                          title: developersModel.nivel!.nivel.toString()),
-                    ],
-                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      developersModel.hobby!,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  )
                 ],
               ),
             ),
