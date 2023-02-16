@@ -5,6 +5,7 @@ import { Messages } from "../../shared/messages";
 import CreateNivelService from "../services/create-nivel-service";
 import DeleteNivelService from "../services/delete-nivel-service";
 import FindAllNiveisService from "../services/find-all-service";
+import FindIdByName from "../services/find-id-by-name";
 import FindOneNivelService from "../services/find-one-nivel-service";
 import UpdateNivelService from "../services/update-nivel-service";
 
@@ -36,6 +37,25 @@ niveisRouter.get('/:id', async (request, response) => {
         }
     }
 })
+
+ niveisRouter.get('/nome/nivel', async (request, response) => {
+     try {
+         const {nivel} = request.body
+
+         const readNivelService = new FindIdByName()
+         const readNivel = await readNivelService.execute(nivel)
+    
+         return response.status(200).json(readNivel)
+     } catch (err: unknown) {
+         if (err instanceof Error) {
+             console.log(err)
+             return response.status(400).json({ error: err.message})
+         }
+     }
+ })
+
+
+
 
 niveisRouter.post('/', async (request, response) =>  {
     try {
