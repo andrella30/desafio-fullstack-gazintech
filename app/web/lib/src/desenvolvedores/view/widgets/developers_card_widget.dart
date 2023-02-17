@@ -32,7 +32,7 @@ class DevelopersCardWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
+            SizedBox(
               height: constraints.maxHeight * 0.15,
               width: constraints.maxWidth * 0.20,
               child: Row(
@@ -41,7 +41,7 @@ class DevelopersCardWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        Container(
+                        SizedBox(
                           height: constraints.maxHeight * 0.03,
                           width: constraints.maxWidth * 0.15,
                           child: Row(
@@ -79,29 +79,93 @@ class DevelopersCardWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               height: constraints.maxHeight * 0.10,
               width: constraints.maxWidth * 0.15,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(Icons.calendar_month_outlined),
-                  Text(
-                    developersModel.dataNascimento!.substring(0, 10),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Icon(Icons.calendar_month_outlined),
+                  ),
+                  Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 20, right: 10),
+                        child: Text(
+                          "Data",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Colors.white54),
+                        ),
+                      ),
+                      const Text(
+                        "Nascimento",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white54),
+                      ),
+                      Text(
+                        developersModel.dataNascimento!.substring(0, 10),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      "${developersModel.idade} Anos",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    padding: const EdgeInsets.only(left: 10, top: 30),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Idade",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              color: Colors.white54),
+                        ),
+                        Text(
+                          "${developersModel.idade} Anos",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      developersModel.hobby!,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    padding: const EdgeInsets.only(left: 10, top: 30),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Hobby",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              color: Colors.white54),
+                        ),
+                        Text(
+                          developersModel.hobby!,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 30),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Nível",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              color: Colors.white54),
+                        ),
+                        Text(
+                          developersModel.nivel!.nivel.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   )
                 ],

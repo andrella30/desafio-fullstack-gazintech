@@ -21,7 +21,7 @@ class NivelCardWidget extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
           color: Colors.blueGrey,
-          borderRadius: BorderRadius.all(Radius.circular(20))),
+          borderRadius: BorderRadius.all(Radius.circular(10))),
       height: constraints.maxHeight * 0.1,
       width: constraints.maxWidth * 0.5,
       child: Padding(
