@@ -25,6 +25,7 @@
 - [x] Impedir que um nível seja removido quando houver um (ou mais) desenvolvedor(es) associado a este
 - [x] Edição de nível
 - [x] Listagem de todos os desenvolvedores
+- [x] Listagem de desenvolvedor pelos atributos nome, sexo, idade, e hobby
 - [x] Busca de desenvolvedor por ID
 - [x] Cadastro de desenvolvedor
 - [x] Exclusão de desenvolvedor
@@ -71,7 +72,7 @@ Não é permitida a criação de dois níveis iguais.
 
 ```json
 {
-  "nivel": "Pleno A"
+  "nivel": "Pleno B"
 }
 ```
 
@@ -94,8 +95,14 @@ Não é permitida a exclusão de um nível caso esteja associado à um ou mais d
   "nivelId": 1
 }
 ``` 
-<p> GET: Para chamar o GET basta acessar:   http://localhost:3333/desenvolvedores. <p>
-<p> GET: Para retornar o desenvolvedor com o id especifico:   http://localhost:3333/desenvolvedores/1. <p>
+<p> GET: Para chamar o GET basta acessar:  http://localhost:3333/desenvolvedores. Alguns parâmetros para busca podem ser passados conforme mostrado abaixo:<p>
+
+- http://localhost:3333/desenvolvedores/1 (Retorna desenvolvedor com o id igual a 1)
+- http://localhost:3333/desenvolvedores/query/desenvolvedor?nome=Gabriel (Busca desenvolvedores com nome contendo Gabriel)
+- http://localhost:3333/desenvolvedores/query/desenvolvedor?hobby=Correr (Busca desenvolvedores com dado hobby)
+- http://localhost:3333/desenvolvedores/query/desenvolvedor?sexo=M (Busca desenvolvedores com dado sexo)
+- Vale ressaltar que os parâmetros das buscas são combináveis, por exemplo: (http://localhost:3333/desenvolvedores/query/desenvolvedor?hobby=Correr&nome=Gabriel).
+
 
 <p> PUT: Para chamar o PUT basta acessar:  http://localhost:3333/desenvolvedores/{id do desenvolvedor}. Você pode modificar alguma informação do JSON abaixo<p>
 
