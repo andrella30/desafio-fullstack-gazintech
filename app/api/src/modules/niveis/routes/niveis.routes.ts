@@ -8,6 +8,7 @@ import FindAllNiveisService from "../services/find-all-service";
 import FindIdByName from "../services/find-id-by-name";
 import FindOneNivelService from "../services/find-one-nivel-service";
 import UpdateNivelService from "../services/update-nivel-service";
+import FindQueryParams from "../services/find-query-params";
 
 
 const niveisRouter = Router();
@@ -43,6 +44,22 @@ niveisRouter.get('/nome/:nivel', async (request, response) => {
         const { nivel } = request.params
         const readNivelService = new FindIdByName()
         const readNivel = await readNivelService.execute(nivel)
+
+        return response.status(200).json(readNivel)
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            return response.status(400).json({ error: err.message })
+        }
+    }
+})
+
+
+niveisRouter.get('/query/nivel', async (request, response) => {
+    try {
+        const nivel = request.query.nivel
+
+        const readNivelService = new FindQueryParams()
+        const readNivel = await readNivelService.execute(String(nivel))
 
         return response.status(200).json(readNivel)
     } catch (err: unknown) {

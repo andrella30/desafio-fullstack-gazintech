@@ -1,12 +1,13 @@
 import { parseISO } from "date-fns";
 import { Router } from "express";
 import { CreateDesenvolvedorDto } from "../services/dto/create-desenvolvedor-dto";
+import { FindAllDesenvolvedorDTO } from "../services/dto/find-all-desenvolvedores-dto";
 import CreateDesenvolvedorService from "../services/create-desenvolvedor-service";
 import DeleteDesenvolvedorService from "../services/delete-desenvolvedor-service";
 import FindAllDesenvolvedorService from "../services/find-all-desenvolvedores-service";
 import FindOneDesenvolvedorService from "../services/find-one-desenvolvedor-service";
 import UpdateDesenvolvedorService from "../services/update-desenvolvedor-service";
-
+import FindDesenvolvedorByParam from "../services/find-desenvovledor-by-param";
 
 
 const desenvolvedorRouter = Router();
@@ -35,6 +36,32 @@ desenvolvedorRouter.get('/:id', async (request, response) => {
         }
     }
 })
+
+desenvolvedorRouter.get('/query/desenvolvedor', async (request, response) => {
+    try {
+        const nome = request.query.nome
+        const hobby = request.query.hobby
+        const idade = request.query.idade
+        const sexo = request.query.sexo
+
+        const findAllDesenvolvedorDTO = new FindAllDesenvolvedorDTO(nome, sexo, idade, hobby);
+
+        var param;
+        param = nome !== undefined ? nome : param
+        param = hobby !== undefined ? hobby : param
+        param = sexo !== undefined ? sexo : param
+
+        const readNivelService = new FindDesenvolvedorByParam()
+        const readNivel = await readNivelService.execute(findAllDesenvolvedorDTO)
+
+        return response.status(200).json(readNivel)
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            return response.status(400).json({ error: err.message })
+        }
+    }
+})
+
 
 desenvolvedorRouter.post('/', async (request, response) => {
     try {

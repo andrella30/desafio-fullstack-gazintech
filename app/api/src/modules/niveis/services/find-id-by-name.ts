@@ -8,20 +8,20 @@ class FindIdByName {
 
     constructor(
         private nivelRepository = AppDataSource.getRepository(Niveis)
-    ) {}
+    ) { }
 
-    public async execute(nivel: string ) {
-            
-            const idNivel = await this.nivelRepository.findOne({
-                where: {nivel},
-            });
-            
-            if (!nivel) {
-                throw new Error(Messages.MESSAGE_NOT_FOUND);
-            }
-            
-            return idNivel;
+    public async execute(nivel: string) {
+
+        const idNivel = await this.nivelRepository.findOne({
+            where: { nivel },
+        });
+
+        if (!nivel) {
+            throw new Error(Messages.MESSAGE_NOT_FOUND);
         }
+
+        return idNivel;
     }
+}
 
 export default FindIdByName 
